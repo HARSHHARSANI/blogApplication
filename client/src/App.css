@@ -1,0 +1,8 @@
+#placeholder::placeholder {
+  text-align: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}

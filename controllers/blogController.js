@@ -31,7 +31,7 @@ export const getPostsByUser = async (req, res) => {
 
 export const getAllPost = async (req, res) => {
   try {
-    const allPosts = await blogModel.find({});
+    const allPosts = await blogModel.find({}).populate("postedBy");
     return res.status(200).json(allPosts);
   } catch (error) {
     console.log(error);
