@@ -28,3 +28,13 @@ export const getPostsByUser = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch posts" });
   }
 };
+
+export const getAllPost = async (req, res) => {
+  try {
+    const allPosts = await blogModel.find({});
+    return res.status(200).json(allPosts);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed to fetch posts" });
+  }
+};
