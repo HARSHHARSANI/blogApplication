@@ -1,6 +1,6 @@
 import express from "express";
-import { authCheck } from "./authMiddleware";
-import { createPost, getPostsByUser } from "../controllers/blogController";
+import { authCheck } from "../middlewares/authMiddleware.js";
+import { createPost, getPostsByUser } from "../controllers/blogController.js";
 
 const router = express.Router();
 

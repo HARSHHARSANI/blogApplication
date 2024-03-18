@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import colors from "colors";
 import userRoutes from "./routes/userRoutes.js";
+import blogRoutes from "./routes/blogRoutes.js";
 
 const app = express();
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(cors());
 const port = process.env.PORT;
 
 app.use("/api/users", userRoutes);
+app.use("/api", blogRoutes);
 
 app.listen(port, () => {
   console.log(

@@ -1,5 +1,5 @@
-import { jwt } from "jsonwebtoken";
-import userModel from "../models/userModel";
+import jwt from "jsonwebtoken";
+import userModel from "../models/userModel.js";
 
 export const authCheck = async (req, res, next) => {
   const token = req.header("Authorization");
@@ -16,7 +16,7 @@ export const authCheck = async (req, res, next) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.user = user; // Attach the user object to the request
+    req.user = user;
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });
