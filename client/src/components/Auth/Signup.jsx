@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import { handleRegister } from "../../functions/userFunction";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
+import Spinner from "../Spinner";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await handleRegister(name, email, password);
       if (response) {
         console.log("Signup successful:", response);
@@ -34,6 +35,8 @@ const Signup = () => {
     } catch (error) {
       setError("Signup failed. Please try again.");
       console.error("Signup error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,7 +101,7 @@ const Signup = () => {
               type="submit"
               className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
             >
-              Signup
+              {loading ? <Spinner /> : "Signup"}
             </button>
           </form>
         </div>

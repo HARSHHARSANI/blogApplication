@@ -17,7 +17,7 @@ const Header = () => {
     <header className="bg-gray-600 text-white py-4">
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="text-2xl font-bold ml-10">
-          Blog App
+          Bloggify
         </Link>
         <nav className="space-x-4 mr-12 ">
           <Link to="/" className="hover:text-gray-300">

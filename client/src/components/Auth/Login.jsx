@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { handleLogin } from "../../functions/userFunction";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../Spinner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await handleLogin(email, password);
       if (response) {
         console.log("Login successful:", response);
@@ -36,6 +39,8 @@ const Login = () => {
     } catch (error) {
       setError("Invalid email or password. Please try again.");
       console.error("Login error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +87,7 @@ const Login = () => {
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
               >
-                Login
+                {loading ? <Spinner /> : "Login"}
               </button>
             </form>
           </div>

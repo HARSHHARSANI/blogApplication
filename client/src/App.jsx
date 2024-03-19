@@ -7,12 +7,15 @@ import Header from "./components/Header";
 import BlogPostForm from "./components/Blog/BlogPostForm";
 import BlogPostList from "./components/Blog/BlogPostList";
 import IndividualPost from "./components/Blog/IndividualPost";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Header />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postBlog } from "../../functions/blogFunctions";
+import { toast } from "react-toastify";
 
 const BlogPostForm = () => {
   const [title, setTitle] = useState("");
@@ -28,10 +29,16 @@ const BlogPostForm = () => {
         setTitle("");
         setDescription("");
         navigate("/");
+        toast.success("Blogs Created Successffully", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       setMessage("An error occurred. Please try again later.");
       console.error("Blog save error:", error);
+      toast.error("Error Occured", {
+        position: "top-center",
+      });
     }
   };
 
