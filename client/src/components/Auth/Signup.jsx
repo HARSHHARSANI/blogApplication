@@ -1,9 +1,41 @@
 import React, { useState } from "react";
+import { handleRegister } from "../../functions/userFunction";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
 
 const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // const apiURL = import.meta.env.VITE_REACT_APP_API_URL;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await handleRegister(name, email, password);
+      if (response) {
+        console.log("Signup successful:", response);
+
+        dispatch({
+          type: "LOGIN",
+          payload: response.newUser,
+        });
+        setEmail("");
+        setPassword("");
+        setName("");
+        navigate("/");
+      }
+    } catch (error) {
+      setError("Signup failed. Please try again.");
+      console.error("Signup error:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen">
@@ -12,7 +44,8 @@ const Signup = () => {
           <h2 className="text-xl md:text-2xl font-semibold text-center mb-4 md:mb-6">
             Signup
           </h2>
-          <form>
+          {error && <div className="text-red-600 text-sm mb-4">{error}</div>}
+          <form onSubmit={handleSubmit}>
             <div className="mb-3 md:mb-4">
               <label
                 htmlFor="name"
@@ -24,6 +57,8 @@ const Signup = () => {
                 type="text"
                 id="name"
                 placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className="mt-1 px-3 md:px-4 py-2 block w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -38,6 +73,8 @@ const Signup = () => {
                 type="email"
                 id="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="mt-1 px-3 md:px-4 py-2 block w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -52,6 +89,8 @@ const Signup = () => {
                 type="password"
                 id="password"
                 placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="mt-1 px-3 md:px-4 py-2 block w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -64,7 +103,6 @@ const Signup = () => {
           </form>
         </div>
       </div>
-      {/* Right Half (Background Color) */}
       <div className="md:w-1/2 bg-gray-300"></div>
     </div>
   );

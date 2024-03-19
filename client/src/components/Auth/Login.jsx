@@ -1,16 +1,42 @@
 import React, { useState } from "react";
+import { handleLogin } from "../../functions/userFunction";
+import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { auth } = useSelector((state) => ({ ...state }));
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    
-    setEmail("");
-    setPassword("");
+
+    try {
+      const response = await handleLogin(email, password);
+      if (response) {
+        console.log("Login successful:", response);
+
+        // Send both user object and token to the reducer
+        dispatch({
+          type: "LOGIN",
+          payload: {
+            user: response.user,
+            token: response.token,
+          },
+        });
+
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      }
+    } catch (error) {
+      setError("Invalid email or password. Please try again.");
+      console.error("Login error:", error);
+    }
   };
 
   return (
@@ -61,7 +87,6 @@ const Login = () => {
             </form>
           </div>
         </div>
-        {/* Right Half (Background Color) */}
         <div className="md:w-1/2 bg-gray-300"></div>
       </div>
     </>

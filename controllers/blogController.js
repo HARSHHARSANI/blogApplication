@@ -1,7 +1,7 @@
 import blogModel from "../models/blogModel.js";
 
 export const createPost = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description } = req.body.blog;
 
   const newPost = new blogModel({
     title,
@@ -36,5 +36,20 @@ export const getAllPost = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Failed to fetch posts" });
+  }
+};
+
+export const deleteBlog = async (req, res) => {
+  const { blogId } = req.params;
+  console.log(blogId);
+  try {
+    const deletedBlog = await blogModel.findByIdAndDelete(blogId);
+    if (!deletedBlog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+    res.status(200).json({ message: "Blog deleted successfully" });
+  } catch (error) {
+    console.error("Delete blog error:", error);
+    res.status(500).json({ message: "Failed to delete blog" });
   }
 };

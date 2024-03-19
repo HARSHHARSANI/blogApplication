@@ -5,6 +5,7 @@ import Signup from "./components/Auth/Signup";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import BlogPostForm from "./components/Blog/BlogPostForm";
+import BlogPostList from "./components/Blog/BlogPostList";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/posts" element={<BlogPostForm />} />
+          <Route path="/myblogs" element={<BlogPostList />} />
         </Routes>
       </div>
     </BrowserRouter>

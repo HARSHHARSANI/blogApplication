@@ -4,6 +4,7 @@ import {
   createPost,
   getPostsByUser,
   getAllPost,
+  deleteBlog,
 } from "../controllers/blogController.js";
 
 const router = express.Router();
@@ -11,5 +12,6 @@ const router = express.Router();
 router.post("/posts", authCheck, createPost);
 router.get("/allposts", getAllPost);
 router.get("/posts/user/:userId", authCheck, getPostsByUser);
+router.delete("/blogs/:blogId", authCheck, deleteBlog);
 
 export default router;

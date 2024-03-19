@@ -1,7 +1,11 @@
 import { createStore, applyMiddleware } from "redux";
-import { thunk } from "redux-thunk"; // If you need to handle async actions
-import rootReducer from "./reducers"; // Create reducers in the 'reducers' folder
+import { thunk } from "redux-thunk"; // Import redux-thunk for handling async actions
+import rootReducer from "./reducers"; // Import your combined reducers
+import { composeWithDevTools } from "redux-devtools-extension"; // Import composeWithDevTools from redux-devtools-extension
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const middleware = [thunk];
+const enhancers = composeWithDevTools(applyMiddleware(...middleware));
+
+const store = createStore(rootReducer, enhancers);
 
 export default store;

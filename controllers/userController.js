@@ -22,7 +22,10 @@ export const registerUser = async (req, res) => {
 
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({
+      newUser,
+      message: "User registered successfully",
+    });
   } catch (error) {
     res.status(500).json({ message: "Failed to register user" });
   }
@@ -30,7 +33,8 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
+  console.log("email", email);
+  console.log("password", password);
   try {
     const user = await userModel.findOne({ email });
 
@@ -48,7 +52,7 @@ export const loginUser = async (req, res) => {
       expiresIn: "24h",
     });
 
-    res.status(200).json({ token });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(500).json({ message: "Failed to login" });
   }
