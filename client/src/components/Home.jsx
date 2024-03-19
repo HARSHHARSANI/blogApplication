@@ -97,7 +97,7 @@ const Home = () => {
               >
                 <div className="p-4">
                   <h2
-                    className="text-lg font-semibold mb-2 cursor-pointer  hover:bg-slate-400 hover:rounded-full hover:pl-4 hover:cursor-pointer"
+                    className="text-lg font-semibold mb-2 cursor-pointer  hover:bg-slate-300 hover:rounded-full hover:pl-4 hover:cursor-pointer"
                     onClick={() => handleCardClick(blog)}
                   >
                     {blog.title}
