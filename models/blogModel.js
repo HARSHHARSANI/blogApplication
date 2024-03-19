@@ -17,6 +17,19 @@ const blogSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "User",
     },
+
+    comments: [
+      {
+        user: {
+          type: ObjectId,
+          ref: "User",
+        },
+        text: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Header from "./components/Header";
 import BlogPostForm from "./components/Blog/BlogPostForm";
 import BlogPostList from "./components/Blog/BlogPostList";
+import IndividualPost from "./components/Blog/IndividualPost";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/posts" element={<BlogPostForm />} />
           <Route path="/myblogs" element={<BlogPostList />} />
+          <Route path="/blog/:blogId" element={<IndividualPost />} />
         </Routes>
       </div>
     </BrowserRouter>

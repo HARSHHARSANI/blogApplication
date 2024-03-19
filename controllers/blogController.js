@@ -53,3 +53,58 @@ export const deleteBlog = async (req, res) => {
     res.status(500).json({ message: "Failed to delete blog" });
   }
 };
+
+export const postComment = async (req, res) => {
+  const { comment } = req.body;
+  const { blogId } = req.params;
+  const userId = req.user._id;
+
+  try {
+    const blog = await blogModel.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    blog.comments.push({ user: userId, text: comment });
+    const updatedBlog = await blog.save();
+
+    res.status(201).json(updatedBlog);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to post comment" });
+  }
+};
+
+export const getCommentsByBlog = async (req, res) => {
+  const { blogId } = req.params;
+
+  try {
+    const blog = await blogModel.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    const comments = blog.comments;
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch comments" });
+  }
+};
+
+export const getBlogById = async (req, res) => {
+  const { blogId } = req.params;
+  console.log(blogId);
+  try {
+    console.log("inside getBlogById");
+    const blog = await blogModel
+      .findById(blogId)
+      .populate("postedBy")
+      .populate("comments.user", "name");
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+    console.log(blog);
+    res.status(200).json(blog);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch blog" });
+  }
+};
