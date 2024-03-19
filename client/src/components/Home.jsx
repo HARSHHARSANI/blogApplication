@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { postComment } from "../functions/blogFunctions";
 import { useSelector } from "react-redux";
 import Spinner from "./Spinner";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -56,6 +57,10 @@ const Home = () => {
         getAllBlogs().then((response) => {
           setBlogs(response.data);
         });
+
+        toast.success("Comment Added Successffully", {
+          position: "top-center",
+        });
       } catch (error) {
         console.error("Error posting comment:", error);
       }
@@ -92,7 +97,7 @@ const Home = () => {
               >
                 <div className="p-4">
                   <h2
-                    className="text-lg font-semibold mb-2 cursor-pointer"
+                    className="text-lg font-semibold mb-2 cursor-pointer  hover:bg-slate-400 hover:rounded-full hover:pl-4 hover:cursor-pointer"
                     onClick={() => handleCardClick(blog)}
                   >
                     {blog.title}

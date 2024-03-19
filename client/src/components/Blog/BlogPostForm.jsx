@@ -47,7 +47,7 @@ const BlogPostForm = () => {
   };
 
   return (
-    <div className="max-w-lg mx-auto mt-8">
+    <div className="max-w-lg mx-auto mt-8 pt-4 bg-gray-300 rounded-2xl px-6 pb-10">
       <h2 className="text-2xl font-bold mb-4">Create a New Blog</h2>
       <form
         onSubmit={auth.user ? handleSubmit : handleLoginRedirect}
