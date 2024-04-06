@@ -114,7 +114,7 @@ const Home = () => {
                       value={comments[blog._id]}
                       onChange={(e) => handleCommentChange(blog._id, e)}
                       placeholder="Write your comment here..."
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 mt-4"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 mt-4"
                     ></textarea>
                     {auth?.user?.token ? (
                       <button

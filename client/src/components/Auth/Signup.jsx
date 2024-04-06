@@ -27,6 +27,8 @@ const Signup = () => {
           type: "LOGIN",
           payload: response.newUser,
         });
+
+        window.localStorage.setItem("token", response.token);
         setEmail("");
         setPassword("");
         setName("");

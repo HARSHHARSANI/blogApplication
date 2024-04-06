@@ -12,7 +12,6 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => ({ ...state }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();

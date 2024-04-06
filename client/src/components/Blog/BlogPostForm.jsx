@@ -10,6 +10,9 @@ const BlogPostForm = () => {
   const [message, setMessage] = useState("");
 
   const { auth } = useSelector((state) => ({ ...state }));
+  if (window != undefined) {
+    const auth = window.localStorage.getItem("token");
+  }
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
